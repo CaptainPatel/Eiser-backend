@@ -5,6 +5,7 @@ const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 const cartRoutes = require('./routes/cartRoutes');
 const cors = require('cors');
+require('dotenv').config()
 
 // Application Middleware
 server.use(express.static("public"));
@@ -24,11 +25,11 @@ server.get("/", (req, res) => {
         message: "Welcome to our Backend",
     });
 });
-
+const PORT = process.env.PORT
 connectDB()
     .then(() => {
         server.listen(5000, () => {
-            console.log("server started");
+            console.log("server started on " + PORT);
         });
     })
     .catch((error) => console.error(error))

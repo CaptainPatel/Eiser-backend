@@ -2,6 +2,8 @@ const JWT = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const Cart = require("../models/cartModel");
+require('dotenv').config();
+
 
 module.exports.login = async (req, res) => {
     try {
@@ -60,7 +62,7 @@ module.exports.register = async (req, res) => {
         delete user.password;
 
         // token generation
-        const token = JWT.sign({ _id: user._id }, "asn3jb4f5e5r6ck1nwa5l23knaic");
+        const token = JWT.sign({ _id: user._id }, process.env.USER_VERIFICATION_TOKEN);
 
         // create a cart for the user
         await new Cart({

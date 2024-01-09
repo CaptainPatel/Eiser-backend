@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken")
 const User = require("../models/userModel")
+require('dotenv').config();
 
 module.exports.verifyUser = async (req, res, next) => {
     try {
@@ -11,7 +12,7 @@ module.exports.verifyUser = async (req, res, next) => {
             });
         }
         let token = headers.split(" ")[1];
-        let { _id } = jwt.verify(token, "asn3jb4f5e5r6ck1nwa5l23knaic");
+        let { _id } = jwt.verify(token, process.env.USER_VERIFICATION_TOKEN);
         let user = await User.findById(_id);
         if (!user) {
             return res.status(404).json({
