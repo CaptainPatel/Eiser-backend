@@ -13,7 +13,7 @@ server.use(express.json());
 server.use(cors({
     origin: [
         "http://localhost:5173/",
-        "https://mern-eiser-ecommerce-site.onrender.com"
+        "https://eiser-ecommerce.onrender.com"
     ],
 }));
 
