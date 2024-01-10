@@ -10,7 +10,12 @@ require('dotenv').config()
 // Application Middleware
 server.use(express.static("public"));
 server.use(express.json());
-server.use(cors());
+server.use(cors({
+    origin: [
+        "http://localhost:5173/",
+        "https://mern-eiser-ecommerce-site.onrender.com"
+    ],
+}));
 
 
 // Route Group Middleware
