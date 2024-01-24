@@ -7,7 +7,6 @@ require('dotenv').config();
 
 module.exports.login = async (req, res) => {
     try {
-        console.log("loging in...");
         let data = req.body;
         let user = await User.findOne({ email: data.email })
         if (!user) {
@@ -17,6 +16,9 @@ module.exports.login = async (req, res) => {
                 error: "User Is Not Registered"
             });
         }
+        // generate a token
+        const token = JWT.sign({ _id: user._id }, process.env.USER_VERIFICATION_TOKEN);
+
         // compare password with hashed password in database
         const compare = await bcrypt.compare(data.password, user.password);
         if (!compare) {
@@ -31,6 +33,7 @@ module.exports.login = async (req, res) => {
         delete user.password;
         res.status(201).json({
             success: true,
+            token,
             user
         })
     } catch (error) {

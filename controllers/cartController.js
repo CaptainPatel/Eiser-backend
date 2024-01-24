@@ -1,5 +1,6 @@
+const Razorpay = require("razorpay");
 const Cart = require("../models/cartModel");
-
+require("dotenv").config();
 module.exports.getUserCart = async (req, res) => {
     try {
         let user = req.user;
@@ -46,7 +47,6 @@ module.exports.deleteFromCart = async (req, res) => {
     }
 }
 module.exports.addToCart = async (req, res) => {
-    console.log("adding...");
     try {
         let user = req.user;
         let productData = req.body;
@@ -70,5 +70,22 @@ module.exports.addToCart = async (req, res) => {
             success: false,
             error: error.message
         })
+    }
+}
+
+module.exports.purchaseCart = async (req, res) => {
+    try {
+        const razorpay = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_KEY_SECRET
+        });
+
+        const options = req.body;
+        const orders = await razorpay.orders.create(options);
+
+        if (!orders) console.log("ERROR");
+        res.status(200).json(orders);
+    } catch (error) {
+        console.log(error.message);
     }
 }

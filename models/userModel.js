@@ -20,12 +20,6 @@ const userSchema = new mongoose.Schema({
         trim: true,
         minLength: [8, "Password is too short"],
     },
-    role: {
-        type: String,
-        default: "user",
-        trim: true,
-        enum: ["admin", "user"]
-    }
 });
 
 const User = mongoose.model("user", userSchema);

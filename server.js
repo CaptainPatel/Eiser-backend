@@ -12,7 +12,7 @@ server.use(express.static("public"));
 server.use(express.json());
 server.use(cors({
     origin: [
-        "http://localhost:5173/",
+        "http://localhost:5173",
         "https://eiser-ecommerce.onrender.com"
     ],
 }));
